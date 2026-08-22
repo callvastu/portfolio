@@ -211,7 +211,9 @@
   .qr-card{
     background:var(--canvas); border:1px solid var(--line); border-radius:4px;
     padding:18px; text-align:center; width:150px;
+    text-decoration:none; display:block; transition:border-color .2s ease, transform .2s ease;
   }
+  .qr-card:hover{ border-color:var(--gold); transform:translateY(-3px); }
   .qr-card img{ width:100%; margin-bottom:12px; border-radius:2px; }
   .qr-card span{ font-family:'Space Mono', monospace; font-size:11px; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
   .foot-bottom{
@@ -435,9 +437,9 @@
       </div>
 
       <div class="qr-row">
-        <div class="qr-card"><img src="assets/qr-whatsapp.jpg" alt="WhatsApp QR code"><span>WhatsApp</span></div>
-        <div class="qr-card"><img src="assets/qr-sample.jpg" alt="More design sample QR code"><span>More Samples</span></div>
-        <div class="qr-card"><img src="assets/qr-resume.jpg" alt="Resume QR code"><span>Resume</span></div>
+        <a class="qr-card" href="https://wa.me/qr/6MHDRCPWMPWGP1" target="_blank" rel="noopener"><img src="assets/qr-whatsapp.jpg" alt="WhatsApp QR code"><span>WhatsApp</span></a>
+        <a class="qr-card" href="https://drive.google.com/drive/folders/1cnFtrgGTtGmfYGcDEnmVT8s8FdtBQ61f" target="_blank" rel="noopener"><img src="assets/qr-sample.jpg" alt="More design sample QR code"><span>More Samples</span></a>
+        <a class="qr-card" href="https://drive.google.com/file/d/1JVVnYlviNq5mNGp5t67FAsq-J7JxZFYJ/view?usp=sharing" target="_blank" rel="noopener"><img src="assets/qr-resume.jpg" alt="Resume QR code"><span>Resume</span></a>
       </div>
 
       <div class="foot-bottom">
