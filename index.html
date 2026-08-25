@@ -64,26 +64,28 @@
   /* ============ NAV ============ */
   .nav{
     position:sticky; top:0; z-index:40;
-    background:rgba(250,250,247,0.82);
-    backdrop-filter:blur(10px);
+    background:transparent;
     border-bottom:1px solid transparent;
-    transition:border-color .3s ease, box-shadow .3s ease, padding .3s ease;
+    transition:border-color .3s ease, box-shadow .3s ease, padding .3s ease, background .3s ease;
   }
-  .nav.scrolled{ border-color:var(--line); box-shadow:0 4px 24px rgba(20,20,15,0.04); }
+  .nav.scrolled{ background:rgba(250,250,247,0.82); backdrop-filter:blur(10px); border-color:var(--line); box-shadow:0 4px 24px rgba(20,20,15,0.04); }
   .nav .wrap{ display:flex; align-items:center; justify-content:space-between; padding:22px 40px; transition:padding .3s ease; }
   .nav.scrolled .wrap{ padding:14px 40px; }
-  .nav .mark{ font-family:'Fraunces', serif; font-size:20px; letter-spacing:0.5px; color:var(--ink); }
-  .nav .mark span{ color:var(--accent); }
+  .nav .mark{ font-family:'Fraunces', serif; font-size:20px; letter-spacing:0.5px; color:#FAFAF7; transition:color .3s ease; }
+  .nav.scrolled .mark{ color:var(--ink); }
+  .nav .mark span{ color:#D8B667; }
   .nav .links{ display:flex; align-items:center; gap:36px; }
   .nav .links a{
     font-family:'Space Mono', monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase;
-    text-decoration:none; color:var(--muted); position:relative; padding-bottom:3px;
+    text-decoration:none; color:#D8D6C8; position:relative; padding-bottom:3px; transition:color .3s ease;
   }
+  .nav.scrolled .links a{ color:var(--muted); }
   .nav .links a::after{
     content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--accent);
     transition:right .3s ease;
   }
-  .nav .links a:hover{ color:var(--ink); }
+  .nav .links a:hover{ color:#fff; }
+  .nav.scrolled .links a:hover{ color:var(--ink); }
   .nav .links a:hover::after{ right:0; }
   .btn{
     font-family:'Space Mono', monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase;
@@ -103,45 +105,59 @@
   }
   .btn-outline:hover{ color:#fff; }
   .btn-outline:hover::before{ transform:translateY(0); }
+  .btn-outline-light{ border:1px solid rgba(255,255,255,0.6); color:#FAFAF7; }
+  .btn-outline-light::before{
+    content:""; position:absolute; inset:0; background:#FAFAF7; z-index:-1;
+    transform:translateY(100%); transition:transform .28s ease;
+  }
+  .btn-outline-light:hover{ color:var(--ink); }
+  .btn-outline-light:hover::before{ transform:translateY(0); }
 
   /* ============ HERO ============ */
-  .hero{ position:relative; padding:76px 0 0; overflow:hidden; }
+  .hero{ position:relative; padding:76px 0 0; overflow:hidden; min-height:92vh; display:flex; flex-direction:column; justify-content:center; }
+  .hero-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .hero-overlay{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(10,10,8,0.72) 0%, rgba(10,10,8,0.58) 45%, rgba(10,10,8,0.88) 100%);
+  }
+  .hero > .wrap, .hero > .ticker{ position:relative; z-index:2; }
   .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; align-items:center; gap:40px; }
+  .hero .eyebrow{ color:#D8B667; }
+  .hero .eyebrow::before{ background:#D8B667; }
   .hero-copy h1{
     font-family:'Fraunces', serif; font-weight:340; font-size:clamp(46px,6.4vw,88px);
-    line-height:0.98; letter-spacing:-1px; color:var(--ink); margin:18px 0 20px;
+    line-height:0.98; letter-spacing:-1px; color:#FAFAF7; margin:18px 0 20px;
   }
-  .hero-copy h1 em{ font-style:italic; color:var(--accent); font-weight:500; }
-  .hero-copy p.intro{ color:var(--muted); max-width:460px; font-size:16px; margin-bottom:32px; }
+  .hero-copy h1 em{ font-style:italic; color:#D8B667; font-weight:500; }
+  .hero-copy p.intro{ color:#D8D6C8; max-width:460px; font-size:16px; margin-bottom:32px; }
   .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px; }
 
-  .stat-row{ display:flex; gap:40px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:26px; }
+  .stat-row{ display:flex; gap:40px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,0.18); padding-top:26px; }
   .stat b{
-    display:block; font-family:'Fraunces', serif; font-size:32px; font-weight:500; color:var(--ink);
+    display:block; font-family:'Fraunces', serif; font-size:32px; font-weight:500; color:#FAFAF7;
   }
-  .stat span{ font-family:'Space Mono', monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+  .stat span{ font-family:'Space Mono', monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#B9B6A8; }
 
   .hero-photo{ position:relative; }
   .photo-card{
-    background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:14px;
-    box-shadow:0 24px 60px -20px rgba(20,20,15,0.18);
+    background:transparent; border:none; border-radius:0; padding:0; box-shadow:none;
   }
-  .photo-frame{ overflow:hidden; border-radius:3px; aspect-ratio:3/4; }
-  .photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .photo-frame{ overflow:visible; border-radius:0; aspect-ratio:auto; background:transparent; }
+  .photo-frame img{ width:100%; height:auto; max-height:640px; object-fit:contain; object-position:bottom center; display:block; margin:0 auto; }
   .photo-tag{
     display:flex; align-items:center; justify-content:space-between; gap:10px;
     padding:14px 4px 4px; font-family:'Space Mono', monospace; font-size:11px; letter-spacing:1px;
-    text-transform:uppercase; color:var(--muted);
+    text-transform:uppercase; color:#D8D6C8;
   }
   .photo-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); display:inline-block; margin-right:6px; animation:pulse 2.4s ease-in-out infinite; }
   @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
 
   /* marquee ticker */
-  .ticker{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel); overflow:hidden; margin-top:52px; }
+  .ticker{ border-top:1px solid rgba(255,255,255,0.18); border-bottom:1px solid rgba(255,255,255,0.18); background:rgba(10,10,8,0.35); backdrop-filter:blur(4px); overflow:hidden; margin-top:52px; }
   .ticker-track{ display:flex; width:max-content; animation:scroll 30s linear infinite; }
   .ticker-track span{
     font-family:'Space Mono', monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase;
-    color:var(--muted); padding:15px 30px; white-space:nowrap; border-right:1px solid var(--line);
+    color:#D8D6C8; padding:15px 30px; white-space:nowrap; border-right:1px solid rgba(255,255,255,0.18);
   }
   @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
   @media (prefers-reduced-motion: reduce){ .ticker-track{ animation:none; } .photo-tag .dot{ animation:none; } }
@@ -166,7 +182,7 @@
   /* ============ A+ SHOWCASE ============ */
   .showcase{ padding:0 0 100px; }
   .showcase h2{ font-family:'Fraunces', serif; font-size:clamp(28px,3.6vw,40px); font-weight:400; margin:14px 0 34px; }
-  .showcase-grid{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:repeat(2,auto); gap:20px; }
+  .showcase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
   .work-card{ background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; transition:box-shadow .3s ease, transform .3s ease; }
   .work-card:hover{ box-shadow:0 20px 44px -18px rgba(20,20,15,0.16); transform:translateY(-4px); }
   .work-card .imgbox{ overflow:hidden; min-height:300px; }
@@ -209,10 +225,34 @@
   .full-bleed .caption{
     position:absolute; left:0; bottom:0; padding:40px;
     background:linear-gradient(0deg, rgba(10,10,8,0.78), transparent);
-    width:100%;
+    width:100%; z-index:2; pointer-events:none;
   }
   .full-bleed .caption h2{ font-family:'Fraunces', serif; font-size:clamp(26px,3.4vw,38px); font-weight:400; color:#fff; }
   .full-bleed .caption p{ color:#E9DDB8; font-family:'Space Mono', monospace; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; margin-top:8px; }
+
+  /* carousel */
+  .fb-slides{ position:relative; overflow:hidden; }
+  .fb-slide{ display:none; }
+  .fb-slide.is-active{ display:block; }
+  .fb-slide img{ width:100%; height:auto; min-height:520px; max-height:860px; object-fit:cover; display:block; }
+  .fb-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:48px; height:48px; border-radius:50%;
+    background:rgba(10,10,8,0.42); border:1px solid rgba(255,255,255,0.45);
+    color:#fff; font-size:18px; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+  .fb-arrow:hover{ background:rgba(10,10,8,0.75); border-color:#D8B667; }
+  .fb-arrow:active{ transform:translateY(-50%) scale(0.94); }
+  .fb-prev{ left:24px; }
+  .fb-next{ right:24px; }
+  .fb-dots{ position:absolute; left:0; bottom:22px; width:100%; z-index:2; display:flex; justify-content:center; gap:8px; }
+  .fb-dot{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.4); border:none; cursor:pointer; padding:0; transition:background .25s ease, transform .25s ease; }
+  .fb-dot.is-active{ background:#D8B667; transform:scale(1.2); }
+  @media (max-width:860px){
+    .fb-arrow{ width:38px; height:38px; font-size:15px; }
+    .fb-prev{ left:12px; } .fb-next{ right:12px; }
+  }
 
   /* ============ EXPERIENCE ============ */
   .experience{ padding:100px 0; }
@@ -283,6 +323,7 @@
     .edu-grid{ grid-template-columns:1fr; }
     .services-head{ flex-direction:column; align-items:flex-start; }
     .nav .wrap{ padding:14px 24px; }
+    .hero{ min-height:auto; padding-bottom:20px; }
   }
 </style>
 </head>
@@ -302,6 +343,8 @@
 
   <!-- ============ HERO ============ -->
   <section class="hero">
+    <video class="hero-video" src="assets/1.mp4" poster="assets/bg.jpg" autoplay muted loop playsinline></video>
+    <div class="hero-overlay"></div>
     <div class="wrap hero-grid">
       <div class="hero-copy reveal">
         <div class="eyebrow">Namaste — Graphic Designer, Kathmandu</div>
@@ -310,7 +353,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-solid" href="#work">View My Work</a>
-          <a class="btn btn-outline" href="https://drive.google.com/file/d/1JVVnYlviNq5mNGp5t67FAsq-J7JxZFYJ/view?usp=sharing" target="_blank" rel="noopener">Download Resume</a>
+          <a class="btn btn-outline-light" href="https://drive.google.com/file/d/1JVVnYlviNq5mNGp5t67FAsq-J7JxZFYJ/view?usp=sharing" target="_blank" rel="noopener">Download Resume</a>
         </div>
 
         <div class="stat-row">
@@ -376,14 +419,6 @@
           <div class="imgbox"><img src="assets/aplus-2.jpg" alt="Tempered glass screen protector A+ content design"></div>
           <div class="cap"><strong>Flashbee</strong><span>A+ Content</span></div>
         </div>
-        <div class="work-card">
-          <div class="imgbox"><img src="assets/aplus-3.jpg" alt="NarcX Amazon A+ content design"></div>
-          <div class="cap"><strong>NarcX</strong><span>A+ Content</span></div>
-        </div>
-        <div class="work-card">
-          <div class="imgbox"><img src="assets/aplus-4.jpg" alt="Amazon A+ content design — replace with your 4th sample"></div>
-          <div class="cap"><strong>McGrey</strong><span>A+ Content</span></div>
-        </div>
       </div>
     </div>
   </section>
@@ -409,10 +444,25 @@
     </div>
   </section>
 
-  <!-- ============ LISTING IMAGES (full bleed) ============ -->
-  <section class="full-bleed">
-    <div class="imgbox">
-      <img src="assets/listing-images.jpg" alt="Amazon listing images collage">
+  <!-- ============ LISTING IMAGES (full bleed carousel) ============ -->
+  <section class="full-bleed" id="listing-carousel">
+    <div class="fb-slides">
+      <div class="fb-slide is-active">
+        <img src="assets/listing-images.jpg" alt="Amazon listing images collage">
+      </div>
+      <div class="fb-slide">
+        <img src="assets/aplus-3.jpg" alt="Demo slide — replace with your listing image">
+      </div>
+      <div class="fb-slide">
+        <img src="assets/aplus-4.jpg" alt="Demo slide — replace with your listing image">
+      </div>
+    </div>
+    <button class="fb-arrow fb-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="fb-arrow fb-next" type="button" aria-label="Next slide">&#8594;</button>
+    <div class="fb-dots">
+      <button class="fb-dot is-active" type="button" aria-label="Slide 1"></button>
+      <button class="fb-dot" type="button" aria-label="Slide 2"></button>
+      <button class="fb-dot" type="button" aria-label="Slide 3"></button>
     </div>
     <div class="caption">
       <h2>Listing Images Visual</h2>
@@ -565,6 +615,26 @@
       });
     }, { threshold: 0.4 });
     counters.forEach(el => counterIO.observe(el));
+
+    // Listing images carousel
+    (function(){
+      const root = document.getElementById('listing-carousel');
+      if(!root) return;
+      const slides = Array.from(root.querySelectorAll('.fb-slide'));
+      const dots = Array.from(root.querySelectorAll('.fb-dot'));
+      const prevBtn = root.querySelector('.fb-prev');
+      const nextBtn = root.querySelector('.fb-next');
+      let idx = 0;
+
+      function show(i){
+        idx = (i + slides.length) % slides.length;
+        slides.forEach((s, n) => s.classList.toggle('is-active', n === idx));
+        dots.forEach((d, n) => d.classList.toggle('is-active', n === idx));
+      }
+      prevBtn.addEventListener('click', () => show(idx - 1));
+      nextBtn.addEventListener('click', () => show(idx + 1));
+      dots.forEach((d, n) => d.addEventListener('click', () => show(n)));
+    })();
   </script>
 
 </body>
